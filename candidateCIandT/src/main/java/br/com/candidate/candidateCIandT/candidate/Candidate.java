@@ -25,8 +25,8 @@ public class Candidate {
     private Long id;
     private String fullName;
     private String description;
-    private String level;
+    private Level level;
     private int proficiency;
-    private String[] socialLinks;
+    private String socialLinks;
     private LocalDateTime createdAt;
 }
