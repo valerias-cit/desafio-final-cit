@@ -6,10 +6,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class CandidateService {
 
+    private final CandidateRepository candidateRepository;
+
     @Autowired
-    CandidateRepository candidateRepository;
+    public CandidateService(CandidateRepository candidateRepository) {
+        this.candidateRepository = candidateRepository;
+    }
 
     public void saveCustomer(Candidate candidate) {
-        this.candidateRepository.save(candidate);
+        candidateRepository.save(candidate);
     }
 }
