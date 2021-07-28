@@ -15,10 +15,10 @@ public class CandidateRequest {
     @NotNull @NotEmpty
     private String fullName;
     private String description;
-    @NotNull @NotEmpty
+    @NotNull
     private Level level;
-    @NotNull @NotEmpty
-    private int proficiency;
+    @NotNull
+    private Integer proficiency;
     private String socialLinks;
 
 }
