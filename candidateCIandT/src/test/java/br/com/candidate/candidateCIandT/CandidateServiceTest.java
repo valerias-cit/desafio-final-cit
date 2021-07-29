@@ -116,5 +116,24 @@ public class CandidateServiceTest {
         //Então a lista de retorno deve estar vazia
         assertEquals(0, result.size());
     }
+
+    @Test
+    public void deveExluirCandidato(){
+        Candidate candidateToSave = Candidate.builder()
+                .fullName("Mario")
+                .description("tafsdakh")
+                .level(Junior)
+                .proficiency(80)
+                .socialLinks("dhfbczdlk")
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        final ArgumentCaptor<Candidate> candidateCaptor = ArgumentCaptor.forClass(Candidate.class);
+
+        candidateService.saveCustomer(candidateToSave);
+        candidateService.deleteCandidate(Long.valueOf(1));
+
+        Mockito.verify(candidateRepository,Mockito.times(1)).save(candidateCaptor.capture());
+    }
 }
 

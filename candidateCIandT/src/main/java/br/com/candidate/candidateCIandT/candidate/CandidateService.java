@@ -22,4 +22,8 @@ public class CandidateService {
     public List<Candidate> findByStatus(Status status) {
         return candidateRepository.findByStatus(status);
     }
+
+    public void deleteCandidate(Long id){
+        candidateRepository.deleteById(id);
+    }
 }
