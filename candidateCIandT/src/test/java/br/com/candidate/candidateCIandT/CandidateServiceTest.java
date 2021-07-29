@@ -68,7 +68,7 @@ public class CandidateServiceTest {
 
         candidateService.saveCustomer(candidateToSave);
 
-        Mockito.verify(candidateRepository,Mockito.times(2)).save(candidateCaptor.capture());
+        Mockito.verify(candidateRepository,Mockito.times(1)).save(candidateCaptor.capture());
     }
 
 }

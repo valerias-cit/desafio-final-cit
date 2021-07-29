@@ -20,5 +20,7 @@ public class CandidateRequest {
     @NotNull
     private Integer proficiency;
     private String socialLinks;
+    @NotNull
+    private Status status;
 
 }

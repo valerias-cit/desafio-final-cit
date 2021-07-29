@@ -28,4 +28,6 @@ public class Candidate {
     private int proficiency;
     private String socialLinks;
     private LocalDateTime createdAt;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }

@@ -3,6 +3,7 @@ package br.com.candidate.candidateCIandT;
 import br.com.candidate.candidateCIandT.candidate.CandidateController;
 import br.com.candidate.candidateCIandT.candidate.CandidateRequest;
 import br.com.candidate.candidateCIandT.candidate.Level;
+import br.com.candidate.candidateCIandT.candidate.Status;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -34,11 +35,11 @@ class CandidateCIandTApplicationTests {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	CandidateRequest candidateRequest = new CandidateRequest("Rafaela Candido", "software engineer", Level.Junior, 80, "rafaelacandido.linkedIn");
+	CandidateRequest candidateRequest = new CandidateRequest("Rafaela Candido", "software engineer", Level.Junior, 80, "rafaelacandido.linkedIn", Status.A);
 
 	@Test
 	void deveSalvarUmCandidato() throws Exception {
-		CandidateRequest candidateRequest = new CandidateRequest("Rafaela Candido", "software engineer", Level.Junior, 80, "rafaelacandido.linkedIn");
+		CandidateRequest candidateRequest = new CandidateRequest("Rafaela Candido", "software engineer", Level.Junior, 80, "rafaelacandido.linkedIn", Status.A);
 		String json = geradorJson(candidateRequest);
 		mockMvc.perform(MockMvcRequestBuilders.post("/candidate")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -51,7 +52,7 @@ class CandidateCIandTApplicationTests {
 
 	@Test
 	void naoDeveSalvarCandidatoComNomeVazio() throws Exception {
-		CandidateRequest candidateRequest = new CandidateRequest("", "software engineer", Level.Junior, 80, "rafaelacandido.linkedIn");
+		CandidateRequest candidateRequest = new CandidateRequest("", "software engineer", Level.Junior, 80, "rafaelacandido.linkedIn", Status.A);
 		String json = geradorJson(candidateRequest);
 		mockMvc.perform(MockMvcRequestBuilders.post("/candidate")
 				.contentType(MediaType.APPLICATION_JSON)
