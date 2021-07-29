@@ -2,6 +2,7 @@ package br.com.candidate.candidateCIandT.candidate;
 
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,12 @@ import java.util.List;
 public class CandidateController {
 
     private final CandidateService candidateService;
+    private final CandidateRepository candidateRepository;
 
     @Autowired
-    public CandidateController(CandidateService candidateService) {
+    public CandidateController(CandidateService candidateService, CandidateRepository candidateRepository) {
         this.candidateService = candidateService;
+        this.candidateRepository = candidateRepository;
     }
 
     @PostMapping
@@ -48,5 +51,15 @@ public class CandidateController {
     @GetMapping
     public List<Candidate> findCandidates() {
         return candidateService.findByStatus(Status.A);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteCandidate(@PathVariable Long id) {
+
+        if (candidateRepository.findById(id).isPresent()){
+            candidateService.deleteCandidate(id);
+            return ResponseEntity.ok().build();
+        }
+        return new ResponseEntity<>(("Candidato não encontrado"), HttpStatus.NOT_FOUND);
     }
 }
