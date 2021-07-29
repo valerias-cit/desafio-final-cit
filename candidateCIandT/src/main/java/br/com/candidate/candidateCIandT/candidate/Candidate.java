@@ -5,9 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -21,12 +19,15 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class Candidate {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY.AUTO)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String fullName;
     private String description;
-    private String level;
+    @Enumerated(EnumType.STRING)
+    private Level level;
     private int proficiency;
-    private String[] socialLinks;
+    private String socialLinks;
     private LocalDateTime createdAt;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }
