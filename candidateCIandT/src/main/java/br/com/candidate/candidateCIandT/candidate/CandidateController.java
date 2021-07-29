@@ -36,6 +36,7 @@ public class CandidateController {
                 .proficiency(candidateRequest.getProficiency())
                 .socialLinks(candidateRequest.getSocialLinks())
                 .createdAt(LocalDateTime.now())
+                .status(candidateRequest.getStatus())
                 .build();
 
         try {
