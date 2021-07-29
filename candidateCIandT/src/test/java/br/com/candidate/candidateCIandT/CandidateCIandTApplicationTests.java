@@ -34,6 +34,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class CandidateCIandTApplicationTests {
 
 	@Autowired
+	private CandidateRepository candidateRepository;
+
+	@Autowired
 	private MockMvc mockMvc;
 
 	@Autowired
@@ -124,6 +127,37 @@ class CandidateCIandTApplicationTests {
 						.andExpect(status().isOk()) // então a resposta deve ser 200ok
 						.andExpect(jsonPath("$").value(hasSize(0))); //e a lista deve estar vazia
 	}
+
+	@Test
+	void deveExluirCandidato() throws Exception {
+
+		candidateRepository.save(Candidate.builder()
+				.fullName("Mario")
+				.description("tafsdakh")
+				.level(Junior)
+				.proficiency(80)
+				.socialLinks("dhfbczdlk")
+				.createdAt(LocalDateTime.now())
+				.build());
+
+		mockMvc.perform(MockMvcRequestBuilders.delete("/candidate/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.characterEncoding("UTF-8"))
+				.andExpect(status().isOk());
+
+	}
+
+	@Test
+
+	void deveRetornarErroQuandoNaoEncontrarOCandidatoCadastrado() throws Exception {
+		candidateRepository.deleteAll();
+		mockMvc.perform(MockMvcRequestBuilders.delete("/candidate/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.characterEncoding("UTF-8"))
+				.andExpect(status().isNotFound())
+				.andReturn().getResponse().getContentAsString().equals("Candidato não encontrado");
+	}
+
 
 	public String geradorJson(CandidateRequest candidateRequest) throws JsonProcessingException {
 		return objectMapper.writeValueAsString(candidateRequest);

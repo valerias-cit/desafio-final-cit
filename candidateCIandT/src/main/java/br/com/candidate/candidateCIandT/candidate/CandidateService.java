@@ -22,4 +22,12 @@ public class CandidateService {
     public List<Candidate> findByStatus(Status status) {
         return candidateRepository.findByStatus(status);
     }
+
+    public boolean deleteCandidate(Long id){
+        if (candidateRepository.existsById(id)){
+            candidateRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
