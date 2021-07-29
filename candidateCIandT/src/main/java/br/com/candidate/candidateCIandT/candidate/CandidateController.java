@@ -56,10 +56,9 @@ public class CandidateController {
     @DeleteMapping("/{id}")
     public ResponseEntity deleteCandidate(@PathVariable Long id) {
 
-        if (candidateRepository.findById(id).isPresent()){
-            candidateService.deleteCandidate(id);
+        if (candidateService.deleteCandidate(id)){
             return ResponseEntity.ok().build();
-        }
-        return new ResponseEntity<>(("Candidato não encontrado"), HttpStatus.NOT_FOUND);
+        } else
+        return new ResponseEntity<>("Candidato não encontrado", HttpStatus.NOT_FOUND);
     }
 }

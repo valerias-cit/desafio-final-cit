@@ -23,7 +23,11 @@ public class CandidateService {
         return candidateRepository.findByStatus(status);
     }
 
-    public void deleteCandidate(Long id){
-        candidateRepository.deleteById(id);
+    public boolean deleteCandidate(Long id){
+        if (candidateRepository.existsById(id)){
+            candidateRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
