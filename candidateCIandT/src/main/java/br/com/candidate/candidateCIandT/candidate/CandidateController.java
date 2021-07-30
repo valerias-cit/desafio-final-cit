@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/candidate")
@@ -28,7 +29,11 @@ public class CandidateController {
     @PostMapping
     public ResponseEntity addCustomer(@RequestBody @Valid CandidateRequest candidateRequest, BindingResult result) {
         if(result.hasErrors()) {
-            return ResponseEntity.badRequest().body(result.getFieldErrors());
+            List<String> errors = result.getFieldErrors().stream()
+                    .map(fieldError -> fieldError.getField())
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.badRequest().body("Erro no Cadastro do Candidato, por favor preencha os campos: " + errors.toString());
         }
         Candidate candidateToSave = Candidate.builder()
                 .fullName(candidateRequest.getFullName())
